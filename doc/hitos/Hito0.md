@@ -1,12 +1,4 @@
-# :game_die:12Punk🏴‍☠️
-
-Virtual Tabletop para el juego de rol Seapunk Unleashed desarrollado para la asignatura de Cloud Computing en el Máster en Ingeniería Informática de la Universidad de Granada.
-
-![](https://www.unleashedgames.es/wp-content/uploads/2022/04/Descarga_Portada_Titulo.png)
-
-## Descripción del proyecto
-
-### Descripción del problema
+## Descripción del problema
 
 Los juegos de rol son una actividad en la que varias personas se reunen para interpretar cada uno a un personaje en un mundo ficticio mientras que el *game master* o director de juego presenta un mundo y eventos en los cuales se verán envueltos dichos personajes. Estos deberán resolver las situaciones que se les propongan tirando dados y tomando decisiones.
 
@@ -25,6 +17,50 @@ El producto beneficiaría a:
 
 2. El director de juego, que requiere de funcionalidades específicas que faciliten su labor, ya que debe actuar como muchos personajes a la vez (seguimiento de varias fichas de forma simultánea) y presentar el mundo (compartir imágenes que acompañen a sus descripciones).
 
-## Descripción del problema y configuración de GitHub
+## Preparación inicial del entorno de trabajo
 
-En el [Hito 0]() en el que se detalla la configuración inicial del repositorio así como la descripción del problema.
+Para comenzar se realizó el [repositorio del proyecto](https://github.com/pabloMillanCb/Sea12) así como un [fork del repositorio de la asignatura](https://github.com/pabloMillanCb/CC-23-24). No hizo falta añadir una foto de perfil ni biografía a la cuenta de GitHub porque ya estaba configurado anteriormente como se puede observar en la siguiente imagen.
+
+![profile](doc/img/screenshot1.png)
+
+La configuración de ls claves pública y privada para poder trabajar con el repositorio desde el terminal mediante SSH ya se realizó también previamente siguiendo estos pasos:
+
+1. Crear la clave
+```
+$ ssh-keygen -t rsa -b 4096 -C "pablomillancb@gmail.com"
+```
+2. Iniciar el agente SSH
+```
+$ eval "$(ssh-agent -s)"
+```
+3. Agregar la clave al agente
+```
+$ ssh-add /home/pablo/.ssh/id_rsa
+```
+4. Obtener la clave pública e introducirla en GitHub
+```
+$ cat /home/pablo/.ssh/id_rsa
+```
+![sshkey](doc/img/screenshot2.png)
+
+5. Registrar nombre y email en local
+```
+$ git config --global user.name "Pablo Millán"
+$ git config --global user.email pablomillancb@gmail.com
+```
+
+Ya se pueden clonar los repositorios a local:
+
+```
+$ git clone git@github.com:pabloMillanCb/Sea12.git
+$ git clone git@github.com:pabloMillanCb/CC-23-24.git
+```
+## Activar la autenticación de doble factor
+
+Se siguieron las instrucciones de la configuración del perfil de GitHub y se activó sin ninguna complicación.
+
+![2factor](doc/img/screenshot3.png)
+
+## Licencia
+
+Se escogió la licencia *GNU GENERAL PUBLIC LICENSE*, que permite la distribución y modificación del código del proyecto siempre y cuando el resultado sea publicado bajo la misma licencia.
