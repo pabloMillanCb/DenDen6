@@ -21,7 +21,7 @@ El producto beneficiaría a:
 
 Para comenzar se realizó el [repositorio del proyecto](https://github.com/pabloMillanCb/Sea12) así como un [fork del repositorio de la asignatura](https://github.com/pabloMillanCb/CC-23-24). No hizo falta añadir una foto de perfil ni biografía a la cuenta de GitHub porque ya estaba configurado anteriormente como se puede observar en la siguiente imagen.
 
-![profile](doc/img/screenshot1.png)
+![profile](../img/screenshot1.png)
 
 La configuración de ls claves pública y privada para poder trabajar con el repositorio desde el terminal mediante SSH ya se realizó también previamente siguiendo estos pasos:
 
@@ -41,7 +41,7 @@ $ ssh-add /home/pablo/.ssh/id_rsa
 ```
 $ cat /home/pablo/.ssh/id_rsa
 ```
-![sshkey](doc/img/screenshot2.png)
+![sshkey](../img/screenshot2.png)
 
 5. Registrar nombre y email en local
 ```
@@ -59,7 +59,7 @@ $ git clone git@github.com:pabloMillanCb/CC-23-24.git
 
 Se siguieron las instrucciones de la configuración del perfil de GitHub y se activó sin ninguna complicación.
 
-![2factor](doc/img/screenshot3.png)
+![2factor](../img/screenshot3.png)
 
 ## Licencia
 
