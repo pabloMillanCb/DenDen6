@@ -27,4 +27,4 @@ El producto beneficiaría a:
 
 ## Descripción del problema y configuración de GitHub
 
-En el [Hito 0]() en el que se detalla la configuración inicial del repositorio así como la descripción del problema.
+En el [Hito 0](https://github.com/pabloMillanCb/Sea12/blob/main/doc/hitos/Hito0.md) en el que se detalla la configuración inicial del repositorio así como la descripción del problema.
