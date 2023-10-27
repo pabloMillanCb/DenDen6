@@ -1,4 +1,4 @@
-# :game_die:12Punk🏴‍☠️
+# :game_die:DenDen6🏴‍☠️
 
 Virtual Tabletop para el juego de rol Seapunk Unleashed desarrollado para la asignatura de Cloud Computing en el Máster en Ingeniería Informática de la Universidad de Granada.
 
@@ -27,4 +27,4 @@ El producto beneficiaría a:
 
 ## Descripción del problema y configuración de GitHub
 
-En el [Hito 0](https://github.com/pabloMillanCb/Sea12/blob/main/doc/hitos/Hito0.md) en el que se detalla la configuración inicial del repositorio así como la descripción del problema.
+En el [Hito 0](https://github.com/pabloMillanCb/DenDen6/blob/main/doc/hitos/Hito0.md) en el que se detalla la configuración inicial del repositorio así como la descripción del problema.

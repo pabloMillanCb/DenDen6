@@ -19,7 +19,7 @@ El producto beneficiaría a:
 
 ## Preparación inicial del entorno de trabajo
 
-Para comenzar se realizó el [repositorio del proyecto](https://github.com/pabloMillanCb/Sea12) así como un [fork del repositorio de la asignatura](https://github.com/pabloMillanCb/CC-23-24). No hizo falta añadir una foto de perfil ni biografía a la cuenta de GitHub porque ya estaba configurado anteriormente como se puede observar en la siguiente imagen.
+Para comenzar se realizó el [repositorio del proyecto](https://github.com/pabloMillanCb/DenDen6) así como un [fork del repositorio de la asignatura](https://github.com/pabloMillanCb/CC-23-24). No hizo falta añadir una foto de perfil ni biografía a la cuenta de GitHub porque ya estaba configurado anteriormente como se puede observar en la siguiente imagen.
 
 ![profile](../img/screenshot1.png)
 
