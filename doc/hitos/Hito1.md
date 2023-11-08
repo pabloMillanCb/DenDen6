@@ -20,10 +20,10 @@ Todas estas historias se añadieron como *issues* al repositorio del proyecto.
 ## Hitos
 
 A parte de los hitos definidos por la asignatura, se establecieron otra seria de hitos referentes a la implementación del proyecto. Se tienen los siguientes:
-- [Hito 1: Implementación de la lógica de las clases *Character* y *Session*](https://github.com/pabloMillanCb/DenDen6/issues/8)
-- [Hito 2: Implementación de sesiones remotas volátiles](https://github.com/pabloMillanCb/DenDen6/issues/9)
-- [Hito 3: Integración con base de datos](https://github.com/pabloMillanCb/DenDen6/issues/10)
-- [Hito 4: Implementación de frontend](https://github.com/pabloMillanCb/DenDen6/issues/11)
+- [Hito 1: Implementación de la lógica de las clases *Character* y *Session*](https://github.com/pabloMillanCb/DenDen6/milestone/1)
+- [Hito 2: Implementación de sesiones remotas volátiles](https://github.com/pabloMillanCb/DenDen6/milestone/2)
+- [Hito 3: Integración con base de datos](https://github.com/pabloMillanCb/DenDen6/milestone/3)
+- [Hito 4: Implementación de frontend](https://github.com/pabloMillanCb/DenDen6/milestone/4)
 
 ##  Estructura inicial
 
