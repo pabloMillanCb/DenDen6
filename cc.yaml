@@ -1,0 +1,3 @@
+entidad: src/personaje.ts
+entidad: src/session.ts
+entidad: src/user.ts

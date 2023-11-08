@@ -1,4 +1,4 @@
-import Personaje from "./character";
+import Personaje from "./personaje";
 import User from "./user";
 
 export default class Session
