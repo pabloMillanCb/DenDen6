@@ -1,3 +1,10 @@
+interface Tirada
+{
+    sum: number
+    result: number[]
+    stats: number[]
+}
+
 interface Dominio
 {
     points: number,
@@ -88,14 +95,16 @@ export default class Personaje
 
     public rollND6(n: number): number
     {
-        var roll = 0;
+        var result = 0
+
         for (let i = 0; i < n; i++) 
         { 
-            roll +=  Math.floor(Math.random() * (6)) + 1;
+            const roll = Math.floor(Math.random() * (6)) + 1;
+            result += roll
         }
 
         if (n > 0)
-            return  roll;
+            return  result;
         else
             return -1;
     }
