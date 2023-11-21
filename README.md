@@ -25,6 +25,10 @@ El producto beneficiaría a:
 
 2. El director de juego, que requiere de funcionalidades específicas que faciliten su labor, ya que debe actuar como muchos personajes a la vez (seguimiento de varias fichas de forma simultánea) y presentar el mundo (compartir imágenes que acompañen a sus descripciones).
 
-## Descripción del problema y configuración de GitHub
+## Hitos
 
 En el [Hito 0](https://github.com/pabloMillanCb/DenDen6/blob/main/doc/hitos/Hito0.md) en el que se detalla la configuración inicial del repositorio así como la descripción del problema.
+
+En el [Hito 1](https://github.com/pabloMillanCb/DenDen6/blob/main/doc/hitos/Hito1.md) se define el proyecto a través de historias de usuario, issues y milestones, además de una primera aproximación al código generando *clases cascarón* y algunas estructuras de datos.
+
+En el [Hito 2](https://github.com/pabloMillanCb/DenDen6/blob/main/doc/hitos/Hito2.md) se detalla el testeo del proyecto.
