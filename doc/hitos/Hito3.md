@@ -65,4 +65,16 @@ Se siguió la [guía oficial de GitHub](https://docs.github.com/es/actions/publi
 
 ![secrets](../img/screenshot4.png)
 
-Más allá de esto, simplemente se creó un `main.yaml` como el de la guía. Se introdujo en este el nombre de la imagen, que será el mismo del proyecto, y se indicó que se ejecute la *GitHub Action* cada vez que se pushee algo a la rama main del repositorio.
+Se creó un `main.yaml` como el de la guía. Se introdujo en este el nombre de la imagen y del usuario de DockerHub tras el apartado `images`, que será el mismo del proyecto, y se indicó que se ejecute la *GitHub Action* cada vez que se pushee algo a la rama main del repositorio. Para ello se introdujo estas lineas al principio del documento:
+```
+on:
+  push:
+    branches: ['release']
+```
+Al realizar el siguiente push, se ejecuta la acción automáticamente:
+
+![success](../img/screenshot5.png)
+
+Se puede consultar el repositorio de Dockerhub [aquí](https://hub.docker.com/repository/docker/pablomillancb/denden6/general).
+
+![dockerhub](../img/screenshot6.png)
