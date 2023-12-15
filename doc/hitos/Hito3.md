@@ -58,3 +58,11 @@ Obtenemos la siguiente salida:
        press h to show help, press q to quit
 
 ```
+
+## Subida a Docker Hub y GitHub Packages
+
+Se siguió la [guía oficial de GitHub](https://docs.github.com/es/actions/publishing-packages/publishing-docker-images#publicar-im%C3%A1genes-en-docker-hub-y-en-github-packages) para la publicación de imágenes en Docker Hub y GitHub Packages. Para ello se tuvieron que definir dos *secretos* de GitHub que almacenaran el usuario y contraseña de la cuenta de DockerHub.
+
+![secrets](../img/screenshot4.png)
+
+Más allá de esto, simplemente se creó un `main.yaml` como el de la guía. Se introdujo en este el nombre de la imagen, que será el mismo del proyecto, y se indicó que se ejecute la *GitHub Action* cada vez que se pushee algo a la rama main del repositorio.
