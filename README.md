@@ -32,3 +32,5 @@ En el [Hito 0](https://github.com/pabloMillanCb/DenDen6/blob/main/doc/hitos/Hito
 En el [Hito 1](https://github.com/pabloMillanCb/DenDen6/blob/main/doc/hitos/Hito1.md) se define el proyecto a través de historias de usuario, issues y milestones, además de una primera aproximación al código generando *clases cascarón* y algunas estructuras de datos.
 
 En el [Hito 2](https://github.com/pabloMillanCb/DenDen6/blob/main/doc/hitos/Hito2.md) se detalla el testeo del proyecto.
+
+En el [Hito 3](https://github.com/pabloMillanCb/DenDen6/blob/main/doc/hitos/Hito3.md) se crea un contenedor para ejecutar los tests del proyecto y a través de GitHub Actions se automatiza para que se construya y ejecute ese contenedor cada vez que haya una versión nueva del proyecto.
