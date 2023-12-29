@@ -7,7 +7,7 @@
     "doc": "doc"
   },
   "scripts": {
-    "test": "vitest",
+    "test": "vitest run",
     "start:dev": "npx nodemon"
   },
   "keywords": [],
