@@ -14,4 +14,4 @@ jobs:
       - uses: actions/checkout@v2
       - name: Run Tests
         run:
-          docker run -t -v `pwd`:/app/test pablomillancb/denden6
+          docker run ghcr.io/pablomillancb/denden6:main
