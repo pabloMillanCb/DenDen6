@@ -54,4 +54,4 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
       - name: Run CI tests
-        run: docker run -t -v `pwd`:/app/test pabloMillanCb/denden6
+        run: docker run -t -v `pwd`:/app/test pablomillancb/denden6
