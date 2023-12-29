@@ -1,0 +1,17 @@
+name: Run Tests
+
+on:
+  workflow_run:
+    workflows: ["GitHub Container Registry"]
+    branches: [main]
+    types:
+      - completed
+
+jobs:
+  run_test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Lanzar Tests CI
+        run:
+          docker run -t -v `pwd`:/app/test pablomillancb/denden6
