@@ -2,7 +2,7 @@ name: Run Tests
 
 on:
   workflow_run:
-    workflows: ["Publish Docker image "]
+    workflows: ["Publish Docker image"]
     branches: [main]
     types:
       - completed
