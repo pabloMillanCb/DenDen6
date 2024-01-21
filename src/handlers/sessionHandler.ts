@@ -12,12 +12,12 @@ exports.new_session = async (req: Request, res: Response) => {
     try{
 
         let id = getRandomId()
-        while (App.has(id))
+        while (App.has(id.toString()))
         {
             id = getRandomId()
         }
 
-        App.set(id, new Session(new User))
+        App.set(id.toString(), new Session(new User))
 
         return res
         .status(201)
@@ -30,14 +30,16 @@ exports.new_session = async (req: Request, res: Response) => {
     }
 }
 
-exports.delete_session = async (req: Request<{ id: number}>, res: Response) => {
+exports.delete_session = async (req: Request<{ id: string}>, res: Response) => {
    
     try{
 
-        if (!App.has(req.params.id)) {
+        const app = App
+
+        if (!app.has(req.params.id)) {
             return res
             .status(500)
-            .json({ general: "It does not exist a session with id " + req.params.id.toString()}); 
+            .json({ general: "It does not exist a session with id " + req.params.id}); 
             }
         
         App.delete(req.params.id)
@@ -49,27 +51,38 @@ exports.delete_session = async (req: Request<{ id: number}>, res: Response) => {
     } catch (error) {
         return res
         .status(500)
-        .json({ general: "Something went wrong, please try again"});          
+        .json({ general: "Something went wrong, please try again. " + error});          
     }
 }
 
-exports.join_session = async (req: Request<{ idSession: number, idPlayer: number}>, res: Response) => {
+exports.join_session = async (req: Request<{ idSession: string, idPlayer: string}>, res: Response) => {
    
     try{
 
         const session = App.get(req.params.idSession)
 
+        console.log(App)
+
         if (session == null) {
             return res
             .status(500)
-            .json({ general: "It does not exist a session with id " + req.params.idSession.toString()}); 
+            .json({ general: "It does not exist a session with id " + req.params.idSession}); 
         }
 
-        App.get(req.params.idSession)?.addPlayer(new User, req.params.idPlayer)
+        const success = App.get(req.params.idSession)?.addPlayer(new User, req.params.idPlayer)
 
-        return res
+        if (success) {
+            return res
         .status(201)
-        .json({ general: "Player with id  " + req.params.idPlayer.toString() + " added to session successfully"});  
+        .json({ general: "Player with id  " + req.params.idPlayer.toString() + " added to session successfully"}); 
+        }
+        else {
+            return res
+        .status(500)
+        .json({ general: "Player with id  " + req.params.idPlayer.toString() + " already exists"}); 
+        }
+
+         
             
     } catch (error) {
         return res
@@ -78,7 +91,7 @@ exports.join_session = async (req: Request<{ idSession: number, idPlayer: number
     }
 }
 
-exports.leave_session = async (req: Request<{ idSession: number, idPlayer: number}>, res: Response) => {
+exports.leave_session = async (req: Request<{ idSession: string, idPlayer: string}>, res: Response) => {
    
     try{
 
@@ -114,7 +127,7 @@ exports.leave_session = async (req: Request<{ idSession: number, idPlayer: numbe
 
 //TODO: add_character
 
-exports.remove_character = async (req: Request<{ idSession: number, idCharacter: number}>, res: Response) => {
+exports.remove_character = async (req: Request<{ idSession: string, idCharacter: number}>, res: Response) => {
    
     try{
 
@@ -148,7 +161,7 @@ exports.remove_character = async (req: Request<{ idSession: number, idCharacter:
     }
 }
 
-exports.roll_character = async (req: Request<{ idSession: number, idCharacter: number}>, res: Response) => {
+exports.roll_character = async (req: Request<{ idSession: string, idCharacter: number}>, res: Response) => {
    
     try{
 
@@ -183,7 +196,7 @@ exports.roll_character = async (req: Request<{ idSession: number, idCharacter: n
     }
 }
 
-exports.roll_character_with_stats = async (req: Request<{ idSession: number, idCharacter: number, atr: string, dom: string}>, res: Response) => {
+exports.roll_character_with_stats = async (req: Request<{ idSession: string, idCharacter: number, atr: string, dom: string}>, res: Response) => {
    
     try{
 
@@ -225,7 +238,7 @@ exports.roll_character_with_stats = async (req: Request<{ idSession: number, idC
     }
 }
 
-exports.roll_character_damage = async (req: Request<{ idSession: number, idCharacter: number}>, res: Response) => {
+exports.roll_character_damage = async (req: Request<{ idSession: string, idCharacter: number}>, res: Response) => {
    
     try{
 
@@ -267,7 +280,7 @@ exports.roll_character_damage = async (req: Request<{ idSession: number, idChara
     }
 }
 
-exports.heal_character = async (req: Request<{ idSession: number, idCharacter: number, heal: number}>, res: Response) => {
+exports.heal_character = async (req: Request<{ idSession: string, idCharacter: number, heal: number}>, res: Response) => {
    
     try{
 
@@ -302,7 +315,7 @@ exports.heal_character = async (req: Request<{ idSession: number, idCharacter: n
     }
 }
 
-exports.damage_character = async (req: Request<{ idSession: number, idCharacter: number, damage: number}>, res: Response) => {
+exports.damage_character = async (req: Request<{ idSession: string, idCharacter: number, damage: number}>, res: Response) => {
    
     try{
 
@@ -337,7 +350,7 @@ exports.damage_character = async (req: Request<{ idSession: number, idCharacter:
     }
 }
 
-exports.order_initiative = async (req: Request<{ idSession: number}>, res: Response) => {
+exports.order_initiative = async (req: Request<{ idSession: string}>, res: Response) => {
    
     try{
 

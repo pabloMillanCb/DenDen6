@@ -2,7 +2,7 @@ import Personaje from "./personaje"
 
 export default class User
 {
-    public id = -1
+    public id = "-1"
     private characterCollection: Personaje[] = []
 
     public addCharacter(pj: Personaje): void

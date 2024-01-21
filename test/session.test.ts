@@ -11,12 +11,14 @@ test('add or removing players', () =>
 
     const session = new Session(p1)
 
-    session.addPlayer(p2)
+    session.addPlayer(p2, "1")
+
+    console.log(session)
 
     expect(session.getPlayers.length).toBe(2)
-    expect(session.removePlayer(1)).toBe(true)
+    expect(session.removePlayer("1")).toBe(true)
     expect(session.getPlayers.length).toBe(1)
-    expect(session.removePlayer(0)).toBe(false)
+    expect(session.removePlayer("0")).toBe(false)
 })
 
 test('add or removing characters', () => 

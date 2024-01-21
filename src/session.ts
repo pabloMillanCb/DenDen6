@@ -5,19 +5,19 @@ type PlayerMap = { id: number; user: User };
 
 export default class Session
 {
-    private players: Map<number, User> = new Map<number, User>;
-    private masterId = 0 // ID del Director de Juego, siempre es 0
+    private players: Map<string, User> = new Map<string, User>;
+    private masterId = "0" // ID del Director de Juego, siempre es 0
     private characters: CharacterEntry[] = [];
     public initiativeOrder: CharacterEntry[] = []
     public logs: string[] = [];
 
     constructor(master: User)
     {
-        this.players.set(0, master)
-        master.id = 0
+        this.players.set('0', master)
+        master.id = "0"
     }
 
-    public addPlayer(player: User, id = 0): Boolean
+    public addPlayer(player: User, id: string = '0'): Boolean
     {
         if (this.players.has(id))
         {
@@ -28,9 +28,15 @@ export default class Session
         return true
     }
 
-    public removePlayer(playerId: number): Boolean
+    public removePlayer(playerId: string): Boolean
     {
-        return this.players.delete(playerId)
+        if (playerId != this.masterId) {
+            return this.players.delete(playerId)
+        }
+        else {
+            return false
+        }
+        
     }
 
     public get getPlayers(): User[]
@@ -38,9 +44,9 @@ export default class Session
         return Array.from(this.players.values())
     }
 
-    public destroySession(playerId: number)
+    public destroySession(playerId: string)
     {
-        if (playerId == 0)
+        if (playerId == this.masterId)
         {
             return true
         }
@@ -176,7 +182,7 @@ export default class Session
 
     private throwEvent(text: string, idCharacter: number): void
     {
-        console.log(text)
+        //console.log(text)
         this.logs.push(text)
     }
 

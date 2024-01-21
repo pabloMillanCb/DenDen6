@@ -1,6 +1,5 @@
 import Session from "./session";
 
-type SessionMap = { id: number; session: Session };
-let App : Map<number, Session> = new Map<number, Session>();
+let App : Map<string, Session> = new Map<string, Session>();
 
 export default App
