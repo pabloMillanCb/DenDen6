@@ -1,44 +1,41 @@
 import Personaje from "./personaje";
 import User from "./user";
 
+type PlayerMap = { id: number; user: User };
+
 export default class Session
 {
-    private players: User[] = [];
+    private players: Map<number, User> = new Map<number, User>;
     private masterId = 0 // ID del Director de Juego, siempre es 0
     private characters: CharacterEntry[] = [];
-    private initiativeOrder: CharacterEntry[] = []
+    public initiativeOrder: CharacterEntry[] = []
     public logs: string[] = [];
-    nextId = 1;
 
     constructor(master: User)
     {
-        this.players.push(master)
+        this.players.set(0, master)
         master.id = 0
     }
 
-    public addPlayer(player: User)
+    public addPlayer(player: User, id = 0): Boolean
     {
-        this.players.push(player)
-        player.id = this.nextId
-        this.nextId += 1
+        if (this.players.has(id))
+        {
+            return false
+        }
+
+        this.players.set(id, player)
+        return true
     }
 
-    public removePlayer(playerId: number): boolean
+    public removePlayer(playerId: number): Boolean
     {
-        for (let i = 0; i < this.players.length && playerId != 0; i++)
-        {
-            if (playerId == this.players[i].id)
-            {
-                this.players.splice(i, 1)
-                return true
-            }
-        }
-        return false
+        return this.players.delete(playerId)
     }
 
     public get getPlayers(): User[]
     {
-        return this.players
+        return Array.from(this.players.values())
     }
 
     public destroySession(playerId: number)
@@ -104,22 +101,22 @@ export default class Session
         }
     }
 
-    public rollWithStats(atr: string, dom: string, indexCharacter: number): boolean
+    public rollWithStats(atr: string, dom: string, indexCharacter: number): number
     {
         if (indexCharacter < this.characters.length) //check if atr, dom and characters exists
         {
             const character = this.characters[indexCharacter].character
             const roll = character.rollND6(2) + character.attributes[atr] + character.domains[dom].points
             this.throwEvent(character.name + " obtiene " + roll.toString() + " en una tirada de " + atr + " " + dom, indexCharacter)
-            return true
+            return roll
         }
         else
         {
-            return false
+            return -1
         }
     }
 
-    public rollDamage(indexCharacter: number): boolean
+    public rollDamage(indexCharacter: number): number
     {
         const damageDice = this.checkDamageDice(indexCharacter);
 
@@ -128,11 +125,11 @@ export default class Session
             const character = this.characters[indexCharacter].character
             const roll = character.rollND6(damageDice)
             this.throwEvent(character.name + " realiza " + roll.toString() + " de daño", indexCharacter)
-            return true
+            return roll
         }
         else
         {
-            return false
+            return -1
         }
     }
 

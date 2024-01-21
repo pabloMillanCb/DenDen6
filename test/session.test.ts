@@ -59,12 +59,12 @@ test('roll dice for characters', () =>
     session.addCharacter(c2)
 
     //expect(session.rollWithStats("invent", "invent", 0)).toBe(-1)
-    expect(session.rollWithStats("FUE", "DFIS", 1)).toBe(true)
-    expect(session.rollWithStats("FUE", "DFIS", 2)).toBe(false)
+    expect(session.rollWithStats("FUE", "DFIS", 1)).toBeGreaterThan(0)
+    expect(session.rollWithStats("FUE", "DFIS", 2)).toBeLessThan(0)
     expect(session.roll(0)).toBe(true)
     expect(session.roll(2)).toBe(false)
-    expect(session.rollDamage(0)).toBe(true)
-    expect(session.rollDamage(2)).toBe(false)
+    expect(session.rollDamage(0)).toBeGreaterThan(0)
+    expect(session.rollDamage(2)).toBeLessThan(0)
 
 
 })
