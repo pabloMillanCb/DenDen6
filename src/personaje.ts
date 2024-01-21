@@ -23,6 +23,65 @@ interface EfectoEspecial
     text: string,
 }
 
+interface DatosPersonaje
+{
+    name: string;
+    level: number;
+    bcat: number;
+    data: string;
+    fue: number;
+    din: number;
+    vol: number;
+    int: number;
+    sue: number;
+    dfis: number;
+    dbat: number;
+    dsoc: number;
+    docu: number;
+    damb: number;
+    dcon: number;
+    dtec: number;
+    drec: number;
+    ddem: number;
+    daur: number;
+    saludf: number;
+    resf: number;
+    iniciativa: number;
+    defensa: number;
+    ataque: number;
+    impacto: number;
+    dmax: number;
+}
+
+const emptyCharacter = (): DatosPersonaje => ({
+    name : "",
+    level : 0,
+    bcat : 0,
+    data : "",
+    fue : 0,
+    din : 0,
+    vol : 0,
+    int : 0,
+    sue : 0,
+    dfis : 0,
+    dbat : 0,
+    dsoc : 0,
+    docu : 0,
+    damb : 0,
+    dcon : 0,
+    dtec : 0,
+    drec : 0,
+    ddem : 0,
+    daur : 0,
+    saludf : 0,
+    resf : 0,
+    iniciativa : 0,
+    defensa : 0,
+    ataque : 0,
+    impacto : 0,
+    dmax : 0
+});
+
 export default class Personaje
 {
     public name = "";
@@ -51,7 +110,7 @@ export default class Personaje
         "DCON": { points: 0, text: "" },
         "DTÉC": { points: 0, text: "" },
         "DREC": { points: 0, text: "" },
-        "DDEN": { points: 0, text: "" },
+        "DDEM": { points: 0, text: "" },
         "DAUR": { points: 0, text: "" },
     }
 
@@ -92,6 +151,39 @@ export default class Personaje
 
 
     private specialEffects: EfectoEspecial[] = []
+
+
+    constructor(json: DatosPersonaje = emptyCharacter()) {
+
+        this.name = json.name
+        this.level = json.level
+        this.bcat = json.bcat
+
+        this.attributes["FUE"] = json.fue
+        this.attributes["DIN"] = json.din
+        this.attributes["VOL"] = json.vol
+        this.attributes["INT"] = json.int
+        this.attributes["SUE"] = json.sue
+
+        this.domains["DFIS"].points = json.dfis;
+        this.domains["DBAT"].points = json.dbat;
+        this.domains["DSOC"].points = json.dsoc;
+        this.domains["DAMB"].points = json.damb;
+        this.domains["DOCU"].points = json.docu;
+        this.domains["DCON"].points = json.dcon;
+        this.domains["DTÉC"].points = json.dtec;
+        this.domains["DREC"].points = json.drec;
+        this.domains["DDEM"].points = json.ddem;
+        this.domains["DAUR"].points = json.daur;
+
+        this.pdc["SaludF"].points = json.saludf;
+        this.pdc["ResF"].points = json.resf;
+        this.pdc["Iniciativa"].points = json.iniciativa;
+        this.pdc["Defensa"].points = json.defensa;
+        this.pdc["Ataque"].points = json.ataque;
+        this.pdc["Impacto"].points = json.impacto;
+        this.pdc["Dmax"].points = json.dmax;
+    }
 
     public rollND6(n: number): number
     {

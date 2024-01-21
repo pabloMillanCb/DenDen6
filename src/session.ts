@@ -56,12 +56,20 @@ export default class Session
         }
     }
 
-    public addCharacter(pj: Personaje): void
+    public addCharacter(pj: Personaje): boolean
     {
-        var pjEntity = new CharacterEntry()
-        pjEntity.character = pj
+        try {
+            var pjEntity = new CharacterEntry()
+            pjEntity.character = pj
 
-        this.characters.push(pjEntity);
+            this.characters.push(pjEntity);
+
+            return true
+        }
+
+        catch {
+            return false
+        }   
     }
 
     public removeCharacter(index: number): boolean

@@ -1,5 +1,6 @@
 import express, {Request, Response} from 'express';
 import App from '../app';
+import Personaje from '../personaje';
 import Session from '../session';
 import User from '../user';
 
@@ -38,14 +39,14 @@ exports.delete_session = async (req: Request<{ id: string}>, res: Response) => {
 
         if (!app.has(req.params.id)) {
             return res
-            .status(500)
+            .status(404)
             .json({ general: "It does not exist a session with id " + req.params.id}); 
             }
         
         App.delete(req.params.id)
 
         return res
-        .status(201)
+        .status(200)
         .json({ general: "Session " + req.params.id.toString() + " deleted successfully"});  
             
     } catch (error) {
@@ -59,17 +60,15 @@ exports.join_session = async (req: Request<{ idSession: string, idPlayer: string
    
     try{
 
-        const session = App.get(req.params.idSession)
-
-        console.log(App)
+        const session = App.get(req.params.idSession.toString())
 
         if (session == null) {
             return res
-            .status(500)
-            .json({ general: "It does not exist a session with id " + req.params.idSession}); 
+            .status(404)
+            .json({ general: "It does not exist a session with id " + req.params.idSession.toString()}); 
         }
 
-        const success = App.get(req.params.idSession)?.addPlayer(new User, req.params.idPlayer)
+        const success = App.get(req.params.idSession.toString())?.addPlayer(new User, req.params.idPlayer)
 
         if (success) {
             return res
@@ -78,7 +77,7 @@ exports.join_session = async (req: Request<{ idSession: string, idPlayer: string
         }
         else {
             return res
-        .status(500)
+        .status(406)
         .json({ general: "Player with id  " + req.params.idPlayer.toString() + " already exists"}); 
         }
 
@@ -95,24 +94,30 @@ exports.leave_session = async (req: Request<{ idSession: string, idPlayer: strin
    
     try{
 
-        const session = App.get(req.params.idSession)
+        if (req.params.idPlayer == "0") {
+            return res
+            .status(403)
+            .json({ general: "Game master cannot leave session" }); 
+        }
+
+        const session = App.get(req.params.idSession.toString())
 
         if (session == null) {
             return res
-            .status(500)
+            .status(404)
             .json({ general: "It does not exist a session with id " + req.params.idSession.toString()}); 
         }
 
-        const success = App.get(req.params.idSession)?.removePlayer(req.params.idPlayer)
+        const success = App.get(req.params.idSession.toString())?.removePlayer(req.params.idPlayer)
 
         if (success) {
             return res
-            .status(201)
+            .status(200)
             .json({ general: "Player with id  " + req.params.idPlayer.toString() + " leaved session successfully"});  
         }
         else {
             return res
-            .status(500)
+            .status(404)
             .json({ general: "Player with id  " + req.params.idPlayer.toString() + " does not exists in session"});    
         }
 
@@ -125,32 +130,66 @@ exports.leave_session = async (req: Request<{ idSession: string, idPlayer: strin
     }
 }
 
-//TODO: add_character
-
-exports.remove_character = async (req: Request<{ idSession: string, idCharacter: number}>, res: Response) => {
+exports.add_character = async (req: Request<{ idSession: string}>, res: Response) => {
    
     try{
 
-        const session = App.get(req.params.idSession)
+        const session = App.get(req.params.idSession.toString())
 
         if (session == null) {
             return res
-            .status(500)
+            .status(404)
             .json({ general: "It does not exist a session with id " + req.params.idSession.toString()}); 
         }
 
-        const character = App.get(req.params.idSession)?.getCharacter(req.params.idCharacter)?.character.name
-        const success = App.get(req.params.idSession)?.removeCharacter(req.params.idCharacter)
+        const pj = new Personaje(JSON.parse(JSON.stringify(req.body)))
+
+        const success = App.get(req.params.idSession.toString())?.addCharacter(new Personaje(JSON.parse(JSON.stringify(req.body))))
+        
 
         if (success) {
             return res
             .status(201)
+            .json({ general: "Character  " + pj.name + " added to session"});  
+        }
+        else {
+            return res
+            .status(400)
+            .json({ general: "Character format was incorrect"});   
+        }
+        
+            
+    } catch (error) {
+        return res
+        .status(500)
+        .json({ general: "Something went wrong, please try again"});          
+    }
+}
+
+exports.remove_character = async (req: Request<{ idSession: string, idCharacter: string}>, res: Response) => {
+   
+    try{
+
+        const session = App.get(req.params.idSession.toString())
+
+        if (session == null) {
+            return res
+            .status(404)
+            .json({ general: "It does not exist a session with id " + req.params.idSession.toString()}); 
+        }
+
+        const character = App.get(req.params.idSession.toString())?.getCharacter(parseInt(req.params.idCharacter))?.character.name
+        const success = App.get(req.params.idSession.toString())?.removeCharacter(parseInt(req.params.idCharacter))
+
+        if (success) {
+            return res
+            .status(200)
             .json({ general: "Character  " + character + " removed from session session"});  
         }
         else {
             return res
-            .status(500)
-            .json({ general: "Character  " + req.params.idCharacter + " does not exist in session"});   
+            .status(404)
+            .json({ general: "Character  " + parseInt(req.params.idCharacter) + " does not exist in session"});   
         }
         
             
@@ -161,31 +200,31 @@ exports.remove_character = async (req: Request<{ idSession: string, idCharacter:
     }
 }
 
-exports.roll_character = async (req: Request<{ idSession: string, idCharacter: number}>, res: Response) => {
+exports.roll_character = async (req: Request<{ idSession: string, idCharacter: string}>, res: Response) => {
    
     try{
 
-        const session = App.get(req.params.idSession)
+        const session = App.get(req.params.idSession.toString())
 
         if (session == null) {
             return res
-            .status(500)
+            .status(404)
             .json({ general: "It does not exist a session with id " + req.params.idSession.toString()}); 
         }
         
-        const success = App.get(req.params.idSession)?.roll(req.params.idCharacter)
-        const character = App.get(req.params.idSession)?.getCharacter(req.params.idCharacter)?.character.name
-        const roll = App.get(req.params.idSession)?.getCharacter(req.params.idCharacter)?.tirada
+        const success = App.get(req.params.idSession.toString())?.roll(parseInt(req.params.idCharacter))
+        const character = App.get(req.params.idSession.toString())?.getCharacter(parseInt(req.params.idCharacter))?.character.name
+        const roll = App.get(req.params.idSession.toString())?.getCharacter(parseInt(req.params.idCharacter))?.tirada
 
         if (success) {
             return res
-            .status(201)
+            .status(200)
             .json({ general: "Character  " + character + " rolled " + roll});
         }
         else {
             return res
-            .status(500)
-            .json({ general: "Character  " + req.params.idCharacter + " does not exist in session"});   
+            .status(404)
+            .json({ general: "Character  " + parseInt(req.params.idCharacter) + " does not exist in session"});   
         }
         
             
@@ -196,37 +235,37 @@ exports.roll_character = async (req: Request<{ idSession: string, idCharacter: n
     }
 }
 
-exports.roll_character_with_stats = async (req: Request<{ idSession: string, idCharacter: number, atr: string, dom: string}>, res: Response) => {
+exports.roll_character_with_stats = async (req: Request<{ idSession: string, idCharacter: string, atr: string, dom: string}>, res: Response) => {
    
     try{
 
-        const session = App.get(req.params.idSession)
+        const session = App.get(req.params.idSession.toString())
 
         if (session == null) {
             return res
-            .status(500)
+            .status(404)
             .json({ general: "It does not exist a session with id " + req.params.idSession.toString()}); 
         }
         
 
-        var character = session.getCharacter(req.params.idCharacter)
+        var character = session.getCharacter(parseInt(req.params.idCharacter))
 
-        if (character != undefined) {
+        if (character == undefined) {
             return res
-            .status(500)
-            .json({ general: "Character with id " + req.params.idCharacter + " does not exist in session"});   
+            .status(404)
+            .json({ general: "Character with id " + parseInt(req.params.idCharacter) + " does not exist in session"});   
         }
 
-        const roll = session.rollWithStats(req.params.atr, req.params.dom, req.params.idCharacter)
+        const roll = session.rollWithStats(req.params.atr, req.params.dom, parseInt(req.params.idCharacter))
 
         if (roll > 0) {
             return res
-            .status(201)
+            .status(200)
             .json({ general: "Character  " + character!!.character.name + " rolled " + roll + " with " + req.params.atr + " + " +req.params.dom});
         }
         else {
             return res
-            .status(500)
+            .status(404)
             .json({ general: "Character  " + character + " does not exist in session"});   
         }
         
@@ -238,37 +277,37 @@ exports.roll_character_with_stats = async (req: Request<{ idSession: string, idC
     }
 }
 
-exports.roll_character_damage = async (req: Request<{ idSession: string, idCharacter: number}>, res: Response) => {
+exports.roll_character_damage = async (req: Request<{ idSession: string, idCharacter: string}>, res: Response) => {
    
     try{
 
-        const session = App.get(req.params.idSession)
+        const session = App.get(req.params.idSession.toString())
 
         if (session == null) {
             return res
-            .status(500)
+            .status(404)
             .json({ general: "It does not exist a session with id " + req.params.idSession.toString()}); 
         }
         
-        const success = App.get(req.params.idSession)?.roll(req.params.idCharacter)
+        const success = App.get(req.params.idSession.toString())?.roll(parseInt(req.params.idCharacter))
 
-        const character = App.get(req.params.idSession)?.getCharacter(req.params.idCharacter)?.character.name
-        if (character != undefined) {
+        const character = App.get(req.params.idSession.toString())?.getCharacter(parseInt(req.params.idCharacter))?.character.name
+        if (character == undefined) {
             return res
-            .status(500)
-            .json({ general: "Character with id " + req.params.idCharacter + " does not exist in session"});   
+            .status(404)
+            .json({ general: "Character with id " + parseInt(req.params.idCharacter) + " does not exist in session"});   
         }
 
-        const roll = session.rollDamage(req.params.idCharacter)
+        const roll = session.rollDamage(parseInt(req.params.idCharacter))
 
         if (roll > 0) {
             return res
-            .status(201)
+            .status(200)
             .json({ general: "Character  " + character + " rolled in damage " + roll});
         }
         else {
             return res
-            .status(500)
+            .status(400)
             .json({ general: "Something went wrong."});   
         }
         
@@ -280,31 +319,29 @@ exports.roll_character_damage = async (req: Request<{ idSession: string, idChara
     }
 }
 
-exports.heal_character = async (req: Request<{ idSession: string, idCharacter: number, heal: number}>, res: Response) => {
+exports.heal_character = async (req: Request<{ idSession: string, idCharacter: string, heal: string}>, res: Response) => {
    
     try{
 
-        const session = App.get(req.params.idSession)
+        const session = App.get(req.params.idSession.toString())
 
         if (session == null) {
             return res
-            .status(500)
+            .status(404)
             .json({ general: "It does not exist a session with id " + req.params.idSession.toString()}); 
         }
-        
-        var success = App.get(req.params.idSession)?.roll(req.params.idCharacter)
 
-        const character = App.get(req.params.idSession)?.getCharacter(req.params.idCharacter)
-        if (character != undefined) {
+        const character = App.get(req.params.idSession.toString())?.getCharacter(parseInt(req.params.idCharacter))
+        if (character == undefined) {
             return res
-            .status(500)
-            .json({ general: "Character with id " + req.params.idCharacter + " does not exist in session"});   
+            .status(404)
+            .json({ general: "Character with id " + parseInt(req.params.idCharacter) + " does not exist in session"});   
         }
 
-        character!!.character.healDamage(req.params.heal)
+        character!!.character.healDamage(parseInt(req.params.heal))
 
         return res
-        .status(201)
+        .status(200)
         .json({ general: "Character  " + character!!.character.name + " now has " + character!!.character.damage + " points of damage"});
         
             
@@ -315,37 +352,35 @@ exports.heal_character = async (req: Request<{ idSession: string, idCharacter: n
     }
 }
 
-exports.damage_character = async (req: Request<{ idSession: string, idCharacter: number, damage: number}>, res: Response) => {
+exports.damage_character = async (req: Request<{ idSession: string, idCharacter: string, damage: string}>, res: Response) => {
    
     try{
 
-        const session = App.get(req.params.idSession)
+        const session = App.get(req.params.idSession.toString())
 
         if (session == null) {
             return res
-            .status(500)
+            .status(404)
             .json({ general: "It does not exist a session with id " + req.params.idSession.toString()}); 
         }
-        
-        var success = App.get(req.params.idSession)?.roll(req.params.idCharacter)
 
-        const character = App.get(req.params.idSession)?.getCharacter(req.params.idCharacter)
-        if (character != undefined) {
+        const character = App.get(req.params.idSession.toString())?.getCharacter(parseInt(req.params.idCharacter))
+        if (character == undefined) {
             return res
-            .status(500)
-            .json({ general: "Character with id " + req.params.idCharacter + " does not exist in session"});   
+            .status(404)
+            .json({ general: "Character with id " + parseInt(req.params.idCharacter) + " does not exist in session"});   
         }
 
-        character!!.character.takeDamage(req.params.damage)
+        character!!.character.takeDamage(parseInt(req.params.damage))
 
         return res
-        .status(201)
+        .status(200)
         .json({ general: "Character  " + character!!.character.name + " now has " + character!!.character.damage + " points of damage"});
         
             
     } catch (error) {
         return res
-        .status(500)
+        .status(404)
         .json({ general: "Something went wrong, please try again"});          
     }
 }
@@ -354,11 +389,11 @@ exports.order_initiative = async (req: Request<{ idSession: string}>, res: Respo
    
     try{
 
-        const session = App.get(req.params.idSession)
+        const session = App.get(req.params.idSession.toString())
 
         if (session == null) {
             return res
-            .status(500)
+            .status(404)
             .json({ general: "It does not exist a session with id " + req.params.idSession.toString()}); 
         }
         
@@ -371,13 +406,13 @@ exports.order_initiative = async (req: Request<{ idSession: string}>, res: Respo
           }); 
 
         return res
-        .status(201)
+        .status(200)
         .json({ general: "The new turn order is " + order});
         
             
     } catch (error) {
         return res
-        .status(500)
+        .status(404)
         .json({ general: "Something went wrong, please try again"});          
     }
 }
