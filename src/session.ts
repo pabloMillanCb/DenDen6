@@ -190,7 +190,6 @@ export default class Session
 
     private throwEvent(text: string, idCharacter: number): void
     {
-        //console.log(text)
         this.logs.push(text)
     }
 

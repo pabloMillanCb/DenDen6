@@ -13,8 +13,6 @@ test('add or removing players', () =>
 
     session.addPlayer(p2, "1")
 
-    console.log(session)
-
     expect(session.getPlayers.length).toBe(2)
     expect(session.removePlayer("1")).toBe(true)
     expect(session.getPlayers.length).toBe(1)

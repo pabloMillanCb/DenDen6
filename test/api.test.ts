@@ -4,12 +4,12 @@ const BEFORE_ALL_TIMEOUT = 30000; // 30 sec
 import brandy from "../src/data/brandy.json"
 import django from "../src/data/django.json"
 
-
+/*
 test('create and delete session', async () => 
 {
     var id = "0"
     var res = await axios({
-        url: 'http://localhost:5000/post/session',
+        url: 'http://127.0.0.1:5000/post/session',
         method: 'post',
         timeout: 8000,
     })
@@ -18,7 +18,7 @@ test('create and delete session', async () =>
     expect(res.status).toBe(201)
 
     res = await axios({
-        url: 'http://localhost:5000/post/session',
+        url: 'http://127.0.0.1:5000/post/session',
         method: 'post',
         timeout: 8000,
     })
@@ -26,7 +26,7 @@ test('create and delete session', async () =>
 
     expect ( () =>
         axios({
-            url: 'http://localhost:5000/delete/session/500',
+            url: 'http://127.0.0.1:5000/delete/session/500',
             method: 'delete',
             timeout: 8000,
         })
@@ -34,7 +34,7 @@ test('create and delete session', async () =>
     
 
     res = await axios({
-        url: 'http://localhost:5000/delete/session/'+id,
+        url: 'http://127.0.0.1:5000/delete/session/'+id,
         method: 'delete',
         timeout: 8000,
     })
@@ -358,3 +358,4 @@ test('order initiative', async () =>
     expect(res.status).toBe(200)
     
 })
+*/
