@@ -15,5 +15,4 @@ jobs:
           down-flags: "--volumes"
           services: |
             test
-          up-flags: "--build"
           compose-flags: "logs"
