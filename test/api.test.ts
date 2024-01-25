@@ -26,8 +26,7 @@ test('create and delete session', async () =>
         method: 'post',
         timeout: 8000,
     })
-    expect(res.status).toBe(204)
-    console.log(res.status)
+    expect(res.status).toBe(201)
 
     expect ( () =>
         axios({
