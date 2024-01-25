@@ -45,8 +45,11 @@ jobs:
             pablomillancb/denden6
             ghcr.io/${{ github.repository }}
       
-      - name: Build and publish Docker Compose
-        uses: pennsignals/publish_docker-compose@v0.1.0
+      - name: Build and push Docker images
+        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
         with:
-          docker_compose: 'compose.yaml' # required
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          context: .
+          file: ./compose.yaml
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
