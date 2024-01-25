@@ -1,0 +1,24 @@
+services:
+  app:
+    build:
+      context: .
+    ports:
+      - "5000:5000"
+    healthcheck:
+        test: ["CMD", "curl", "-f", "http://localhost:5000"]
+        interval: 5s
+        timeout: 5s
+        retries: 5
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile_test
+    ports:
+      - "5050:5050"
+    
+    depends_on:
+      app:
+        condition: service_healthy
+    
+  redis:
+    image: "node:21.4-alpine"

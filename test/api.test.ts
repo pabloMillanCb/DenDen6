@@ -4,12 +4,16 @@ const BEFORE_ALL_TIMEOUT = 30000; // 30 sec
 import brandy from "../src/data/brandy.json"
 import django from "../src/data/django.json"
 
-/*
+test('placeholder test', () => {
+    let a = 1
+    expect(a).toBe(1)
+})
+
 test('create and delete session', async () => 
 {
     var id = "0"
     var res = await axios({
-        url: 'http://127.0.0.1:5000/post/session',
+        url: 'http://app:5000/post/session',
         method: 'post',
         timeout: 8000,
     })
@@ -18,7 +22,7 @@ test('create and delete session', async () =>
     expect(res.status).toBe(201)
 
     res = await axios({
-        url: 'http://127.0.0.1:5000/post/session',
+        url: 'http://app:5000/post/session',
         method: 'post',
         timeout: 8000,
     })
@@ -26,7 +30,7 @@ test('create and delete session', async () =>
 
     expect ( () =>
         axios({
-            url: 'http://127.0.0.1:5000/delete/session/500',
+            url: 'http://app:5000/delete/session/500',
             method: 'delete',
             timeout: 8000,
         })
@@ -34,7 +38,7 @@ test('create and delete session', async () =>
     
 
     res = await axios({
-        url: 'http://127.0.0.1:5000/delete/session/'+id,
+        url: 'http://app:5000/delete/session/'+id,
         method: 'delete',
         timeout: 8000,
     })
@@ -45,7 +49,7 @@ test('join and leave players', async () =>
 {
     var id = "0"
     var res = await axios({
-        url: 'http://localhost:5000/post/session',
+        url: 'http://app:5000/post/session',
         method: 'post',
         timeout: 8000,
     })
@@ -54,14 +58,14 @@ test('join and leave players', async () =>
     expect(res.status).toBe(201)
 
     res = await axios({
-        url: 'http://localhost:5000/session/join/'+id+'/14',
+        url: 'http://app:5000/session/join/'+id+'/14',
         method: 'put',
         timeout: 8000,
     })
     expect(res.status).toBe(201)
 
     res = await axios({
-        url: 'http://localhost:5000/session/join/'+id+'/15',
+        url: 'http://app:5000/session/join/'+id+'/15',
         method: 'put',
         timeout: 8000,
     })
@@ -69,7 +73,7 @@ test('join and leave players', async () =>
     
     expect ( () =>
         axios({
-            url: 'http://localhost:5000/session/join/'+id+'/14',
+            url: 'http://app:5000/session/join/'+id+'/14',
             method: 'put',
             timeout: 8000,
         })
@@ -77,7 +81,7 @@ test('join and leave players', async () =>
     
     expect ( () =>
         axios({
-            url: 'http://localhost:5000/session/leave/'+id+'/16',
+            url: 'http://app:5000/session/leave/'+id+'/16',
             method: 'delete',
             timeout: 8000,
         })
@@ -85,7 +89,7 @@ test('join and leave players', async () =>
 
     expect ( () =>
         axios({
-            url: 'http://localhost:5000/session/leave/'+id+'/0',
+            url: 'http://app:5000/session/leave/'+id+'/0',
             method: 'delete',
             timeout: 8000,
         })
@@ -93,7 +97,7 @@ test('join and leave players', async () =>
     
 
     res = await axios({
-        url: 'http://localhost:5000/session/leave/'+id+'/14',
+        url: 'http://app:5000/session/leave/'+id+'/14',
         method: 'delete',
         timeout: 8000,
     })
@@ -105,7 +109,7 @@ test('create and delete session', async () =>
 {
     var id = "0"
     var res = await axios({
-        url: 'http://localhost:5000/post/session',
+        url: 'http://app:5000/post/session',
         method: 'post',
         timeout: 8000,
     })
@@ -114,7 +118,7 @@ test('create and delete session', async () =>
     expect(res.status).toBe(201)
 
     res = await axios({
-        url: 'http://localhost:5000/post/session',
+        url: 'http://app:5000/post/session',
         method: 'post',
         timeout: 8000,
     })
@@ -122,7 +126,7 @@ test('create and delete session', async () =>
 
     expect ( () =>
         axios({
-            url: 'http://localhost:5000/delete/session/500',
+            url: 'http://app:5000/delete/session/500',
             method: 'delete',
             timeout: 8000,
         })
@@ -130,7 +134,7 @@ test('create and delete session', async () =>
     
 
     res = await axios({
-        url: 'http://localhost:5000/delete/session/'+id,
+        url: 'http://app:5000/delete/session/'+id,
         method: 'delete',
         timeout: 8000,
     })
@@ -141,7 +145,7 @@ test('add and delete characters', async () =>
 {
     var id = "0"
     var res = await axios({
-        url: 'http://localhost:5000/post/session',
+        url: 'http://app:5000/post/session',
         method: 'post',
         timeout: 8000,
     })
@@ -150,7 +154,7 @@ test('add and delete characters', async () =>
     expect(res.status).toBe(201)
 
     var res = await axios({
-        url: 'http://localhost:5000/session/add/character/'+id,
+        url: 'http://app:5000/session/add/character/'+id,
         method: 'post',
         timeout: 8000,
         data: brandy
@@ -158,7 +162,7 @@ test('add and delete characters', async () =>
     expect(res.status).toBe(201)
 
     var res = await axios({
-        url: 'http://localhost:5000/session/add/character/'+id,
+        url: 'http://app:5000/session/add/character/'+id,
         method: 'post',
         timeout: 8000,
         data: django
@@ -167,14 +171,14 @@ test('add and delete characters', async () =>
 
     expect ( () =>
         axios({
-            url: 'http://localhost:5000/session/delete/character/'+id+"/"+5,
+            url: 'http://app:5000/session/delete/character/'+id+"/"+5,
             method: 'delete',
             timeout: 8000,
         })
     ).rejects.toThrowError('Request failed with status code 404')
 
     var res = await axios({
-        url: 'http://localhost:5000/session/delete/character/'+id+"/"+1,
+        url: 'http://app:5000/session/delete/character/'+id+"/"+1,
         method: 'delete',
         timeout: 8000
     })
@@ -186,7 +190,7 @@ test('roll for characters', async () =>
 {
     var id = "0"
     var res = await axios({
-        url: 'http://localhost:5000/post/session',
+        url: 'http://app:5000/post/session',
         method: 'post',
         timeout: 8000,
     })
@@ -195,7 +199,7 @@ test('roll for characters', async () =>
     expect(res.status).toBe(201)
 
     var res = await axios({
-        url: 'http://localhost:5000/session/add/character/'+id,
+        url: 'http://app:5000/session/add/character/'+id,
         method: 'post',
         timeout: 8000,
         data: brandy
@@ -203,7 +207,7 @@ test('roll for characters', async () =>
     expect(res.status).toBe(201)
 
     var res = await axios({
-        url: 'http://localhost:5000/session/add/character/'+id,
+        url: 'http://app:5000/session/add/character/'+id,
         method: 'post',
         timeout: 8000,
         data: django
@@ -211,7 +215,7 @@ test('roll for characters', async () =>
     expect(res.status).toBe(201)
 
     var res = await axios({
-        url: 'http://localhost:5000/session/roll/'+id+"/"+0,
+        url: 'http://app:5000/session/roll/'+id+"/"+0,
         method: 'get',
         timeout: 8000
     })
@@ -219,14 +223,14 @@ test('roll for characters', async () =>
 
     expect ( () =>
         axios({
-            url: 'http://localhost:5000/session/roll/'+id+"/"+2,
+            url: 'http://app:5000/session/roll/'+id+"/"+2,
             method: 'get',
             timeout: 8000,
         })
     ).rejects.toThrowError('Request failed with status code 404')
 
     var res = await axios({
-        url: 'http://localhost:5000/session/rollstats/'+id+"/"+1+"/FUE/DFIS",
+        url: 'http://app:5000/session/rollstats/'+id+"/"+1+"/FUE/DFIS",
         method: 'get',
         timeout: 8000
     })
@@ -234,14 +238,14 @@ test('roll for characters', async () =>
 
     expect ( () =>
         axios({
-            url: 'http://localhost:5000/session/rollstats/'+id+"/"+1+"/FUE/NONE",
+            url: 'http://app:5000/session/rollstats/'+id+"/"+1+"/FUE/NONE",
             method: 'get',
             timeout: 8000,
         })
     ).rejects.toThrowError('Request failed with status code 500')
 
     var res = await axios({
-        url: 'http://localhost:5000/session/rolldamage/'+id+'/'+1,
+        url: 'http://app:5000/session/rolldamage/'+id+'/'+1,
         method: 'get',
         timeout: 8000
     })
@@ -249,7 +253,7 @@ test('roll for characters', async () =>
 
     expect ( () =>
         axios({
-            url: 'http://localhost:5000/session/rolldamage/'+id+'/'+3,
+            url: 'http://app:5000/session/rolldamage/'+id+'/'+3,
             method: 'get',
             timeout: 8000,
         })
@@ -261,7 +265,7 @@ test('damage and heal characters', async () =>
 {
     var id = "0"
     var res = await axios({
-        url: 'http://localhost:5000/post/session',
+        url: 'http://app:5000/post/session',
         method: 'post',
         timeout: 8000,
     })
@@ -270,7 +274,7 @@ test('damage and heal characters', async () =>
     expect(res.status).toBe(201)
 
     var res = await axios({
-        url: 'http://localhost:5000/session/add/character/'+id,
+        url: 'http://app:5000/session/add/character/'+id,
         method: 'post',
         timeout: 8000,
         data: brandy
@@ -278,14 +282,14 @@ test('damage and heal characters', async () =>
     expect(res.status).toBe(201)
 
     var res = await axios({
-        url: 'http://localhost:5000/session/damage/'+id+'/'+0+'/'+13,
+        url: 'http://app:5000/session/damage/'+id+'/'+0+'/'+13,
         method: 'put',
         timeout: 8000
     })
     expect(res.status).toBe(200)
 
     var res = await axios({
-        url: 'http://localhost:5000/session/heal/'+id+'/'+0+'/'+3,
+        url: 'http://app:5000/session/heal/'+id+'/'+0+'/'+3,
         method: 'put',
         timeout: 8000
     })
@@ -293,7 +297,7 @@ test('damage and heal characters', async () =>
 
     expect ( () =>
         axios({
-            url: 'http://localhost:5000/session/heal/'+id+'/'+1+'/'+3,
+            url: 'http://app:5000/session/heal/'+id+'/'+1+'/'+3,
             method: 'put',
             timeout: 8000,
         })
@@ -301,7 +305,7 @@ test('damage and heal characters', async () =>
 
     expect ( () =>
         axios({
-            url: 'http://localhost:5000/session/damage/'+id+'/'+1+'/'+3,
+            url: 'http://app:5000/session/damage/'+id+'/'+1+'/'+3,
             method: 'put',
             timeout: 8000,
         })
@@ -312,7 +316,7 @@ test('order initiative', async () =>
 {
     var id = "0"
     var res = await axios({
-        url: 'http://localhost:5000/post/session',
+        url: 'http://app:5000/post/session',
         method: 'post',
         timeout: 8000,
     })
@@ -321,7 +325,7 @@ test('order initiative', async () =>
     expect(res.status).toBe(201)
 
     var res = await axios({
-        url: 'http://localhost:5000/session/add/character/'+id,
+        url: 'http://app:5000/session/add/character/'+id,
         method: 'post',
         timeout: 8000,
         data: brandy
@@ -329,7 +333,7 @@ test('order initiative', async () =>
     expect(res.status).toBe(201)
 
     var res = await axios({
-        url: 'http://localhost:5000/session/add/character/'+id,
+        url: 'http://app:5000/session/add/character/'+id,
         method: 'post',
         timeout: 8000,
         data: django
@@ -337,25 +341,24 @@ test('order initiative', async () =>
     expect(res.status).toBe(201)
 
     var res = await axios({
-        url: 'http://localhost:5000/session/roll/'+id+"/"+0,
+        url: 'http://app:5000/session/roll/'+id+"/"+0,
         method: 'get',
         timeout: 8000
     })
     expect(res.status).toBe(200)
 
     var res = await axios({
-        url: 'http://localhost:5000/session/roll/'+id+"/"+1,
+        url: 'http://app:5000/session/roll/'+id+"/"+1,
         method: 'get',
         timeout: 8000
     })
     expect(res.status).toBe(200)
 
     var res = await axios({
-        url: 'http://localhost:5000/session/initiative/'+id,
+        url: 'http://app:5000/session/initiative/'+id,
         method: 'get',
         timeout: 8000
     })
     expect(res.status).toBe(200)
     
 })
-*/

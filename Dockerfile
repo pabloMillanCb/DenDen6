@@ -4,10 +4,10 @@ WORKDIR /src
 
 COPY package*.json ./
 
-RUN npm install && npm update
+RUN apk add curl && npm install && npm update
 
-COPY src/. ./
+COPY ./ ./
 
-COPY test/. ./
+EXPOSE 5000
 
-CMD ["npm", "run", "test"]
+CMD ["npm", "run", "start"]
