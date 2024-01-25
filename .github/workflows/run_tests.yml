@@ -1,8 +1,11 @@
 name: Run Tests
 
 on:
-  push:
-    branches: ['main']
+  workflow_run:
+    workflows: ["Publish Docker image"]
+    branches: [main]
+    types:
+      - completed
 
 jobs:
   run_test:
@@ -13,6 +16,6 @@ jobs:
         with:
           compose-file: "./compose.yaml"
           down-flags: "--volumes"
+          compose-flags: "logs"
           services: |
             test
-          compose-flags: "logs"
