@@ -17,5 +17,4 @@ jobs:
           compose-file: "./compose.yaml"
           down-flags: "--volumes"
           services: |
-            app
             test
