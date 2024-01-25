@@ -18,3 +18,5 @@ jobs:
           down-flags: "--volumes"
           services: |
             test
+          up-flags: "--build"
+          down-flags: "--volumes"
