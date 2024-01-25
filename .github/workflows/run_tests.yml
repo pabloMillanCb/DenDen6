@@ -14,4 +14,4 @@ jobs:
       uses: actions/checkout@v1
 
     - name: Start containers
-      run: docker-compose -f "./compose.yaml" up --build
+      run: docker-compose -f "./compose.yaml" run test --build
