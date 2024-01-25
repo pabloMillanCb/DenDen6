@@ -12,6 +12,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Run Tests
-        run:
-          docker run -t ghcr.io/pablomillancb/denden6:main
+      - uses: isbang/compose-action@v1.5.1
+          with:
+            compose-file: "./compose.yaml"
+            down-flags: "--volumes"
+            services: |
+              app
+              test
