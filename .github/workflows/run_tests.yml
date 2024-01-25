@@ -1,11 +1,8 @@
 name: Run Tests
 
 on:
-  workflow_run:
-    workflows: ["Publish Docker image"]
-    branches: [main]
-    types:
-      - completed
+  push:
+    branches: ['main']
 
 jobs:
   run_test:
@@ -19,4 +16,4 @@ jobs:
           services: |
             test
           up-flags: "--build"
-          down-flags: "--volumes"
+          compose-flags: "logs"
