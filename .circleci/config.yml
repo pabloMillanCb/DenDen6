@@ -7,7 +7,7 @@ version: 2.1
 jobs:
   test:
     docker:
-      - image: docker:19.03.12
+      - image: docker:latest
     steps:
       - checkout
       - setup_remote_docker
