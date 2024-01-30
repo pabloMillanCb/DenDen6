@@ -8,8 +8,8 @@ RUN apk add curl && npm install && npm update
 
 COPY ./ ./
 
-RUN rm -rf /test/api.test.ts
+RUN rm -rf ./test/api.test.ts
 
 EXPOSE 5000
 
-CMD ["npm", "run", "start"]
+CMD ["ls", "./test"]
