@@ -1,7 +1,7 @@
 import express, {Request, Response} from 'express';
 import { json } from 'stream/consumers';
 import { level } from 'winston';
-import logger from './logs';
+import { logger } from './logs';
 var bodyParser = require('body-parser')
 
 
