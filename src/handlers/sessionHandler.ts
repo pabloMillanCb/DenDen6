@@ -3,6 +3,7 @@ import App from '../app';
 import Personaje from '../personaje';
 import Session from '../session';
 import User from '../user';
+import { logger, loggerError } from '../logs';
 
 function getRandomId() {
     return Math.floor(Math.random() * 10000);
@@ -25,6 +26,14 @@ exports.new_session = async (req: Request, res: Response) => {
         .json({ general: "Session created with id " + id.toString()});  
             
     } catch (error) {
+
+        loggerError.info({
+            method: req.method,
+            url: req.url,
+            statusCode: 500,
+            date: Date(),
+          });
+
         return res
         .status(500)
         .json({ general: "Something went wrong, please try again"});          
@@ -50,6 +59,14 @@ exports.delete_session = async (req: Request<{ id: string}>, res: Response) => {
         .json({ general: "Session " + req.params.id.toString() + " deleted successfully"});  
             
     } catch (error) {
+
+        loggerError.info({
+            method: req.method,
+            url: req.url,
+            statusCode: 500,
+            date: Date(),
+          });
+
         return res
         .status(500)
         .json({ general: "Something went wrong, please try again. " + error});          
@@ -63,6 +80,14 @@ exports.join_session = async (req: Request<{ idSession: string, idPlayer: string
         const session = App.get(req.params.idSession.toString())
 
         if (session == null) {
+
+            loggerError.info({
+                method: req.method,
+                url: req.url,
+                statusCode: 404,
+                date: Date(),
+              });
+
             return res
             .status(404)
             .json({ general: "It does not exist a session with id " + req.params.idSession.toString()}); 
@@ -76,6 +101,14 @@ exports.join_session = async (req: Request<{ idSession: string, idPlayer: string
         .json({ general: "Player with id  " + req.params.idPlayer.toString() + " added to session successfully"}); 
         }
         else {
+
+            loggerError.info({
+                method: req.method,
+                url: req.url,
+                statusCode: 406,
+                date: Date(),
+              });
+
             return res
         .status(406)
         .json({ general: "Player with id  " + req.params.idPlayer.toString() + " already exists"}); 
@@ -84,6 +117,14 @@ exports.join_session = async (req: Request<{ idSession: string, idPlayer: string
          
             
     } catch (error) {
+
+        loggerError.info({
+            method: req.method,
+            url: req.url,
+            statusCode: 500,
+            date: Date(),
+          });
+
         return res
         .status(500)
         .json({ general: "Something went wrong, please try again"});          
@@ -95,6 +136,14 @@ exports.leave_session = async (req: Request<{ idSession: string, idPlayer: strin
     try{
 
         if (req.params.idPlayer == "0") {
+
+            loggerError.info({
+                method: req.method,
+                url: req.url,
+                statusCode: 403,
+                date: Date(),
+              });
+
             return res
             .status(403)
             .json({ general: "Game master cannot leave session" }); 
@@ -103,6 +152,14 @@ exports.leave_session = async (req: Request<{ idSession: string, idPlayer: strin
         const session = App.get(req.params.idSession.toString())
 
         if (session == null) {
+
+            loggerError.info({
+                method: req.method,
+                url: req.url,
+                statusCode: 404,
+                date: Date(),
+              });
+
             return res
             .status(404)
             .json({ general: "It does not exist a session with id " + req.params.idSession.toString()}); 
@@ -116,6 +173,14 @@ exports.leave_session = async (req: Request<{ idSession: string, idPlayer: strin
             .json({ general: "Player with id  " + req.params.idPlayer.toString() + " leaved session successfully"});  
         }
         else {
+
+            loggerError.info({
+                method: req.method,
+                url: req.url,
+                statusCode: 404,
+                date: Date(),
+              });
+
             return res
             .status(404)
             .json({ general: "Player with id  " + req.params.idPlayer.toString() + " does not exists in session"});    
@@ -124,6 +189,14 @@ exports.leave_session = async (req: Request<{ idSession: string, idPlayer: strin
         
             
     } catch (error) {
+
+        loggerError.info({
+            method: req.method,
+            url: req.url,
+            statusCode: 500,
+            date: Date(),
+          });
+
         return res
         .status(500)
         .json({ general: "Something went wrong, please try again"});          
@@ -137,6 +210,14 @@ exports.add_character = async (req: Request<{ idSession: string}>, res: Response
         const session = App.get(req.params.idSession.toString())
 
         if (session == null) {
+
+            loggerError.info({
+                method: req.method,
+                url: req.url,
+                statusCode: 404,
+                date: Date(),
+              });
+
             return res
             .status(404)
             .json({ general: "It does not exist a session with id " + req.params.idSession.toString()}); 
@@ -153,6 +234,14 @@ exports.add_character = async (req: Request<{ idSession: string}>, res: Response
             .json({ general: "Character  " + pj.name + " added to session"});  
         }
         else {
+
+            loggerError.info({
+                method: req.method,
+                url: req.url,
+                statusCode: 400,
+                date: Date(),
+              });
+
             return res
             .status(400)
             .json({ general: "Character format was incorrect"});   
@@ -160,6 +249,14 @@ exports.add_character = async (req: Request<{ idSession: string}>, res: Response
         
             
     } catch (error) {
+
+        loggerError.info({
+            method: req.method,
+            url: req.url,
+            statusCode: 500,
+            date: Date(),
+          });
+
         return res
         .status(500)
         .json({ general: "Something went wrong, please try again"});          
@@ -173,6 +270,14 @@ exports.remove_character = async (req: Request<{ idSession: string, idCharacter:
         const session = App.get(req.params.idSession.toString())
 
         if (session == null) {
+
+            loggerError.info({
+                method: req.method,
+                url: req.url,
+                statusCode: 404,
+                date: Date(),
+              });
+
             return res
             .status(404)
             .json({ general: "It does not exist a session with id " + req.params.idSession.toString()}); 
@@ -187,6 +292,14 @@ exports.remove_character = async (req: Request<{ idSession: string, idCharacter:
             .json({ general: "Character  " + character + " removed from session session"});  
         }
         else {
+
+            loggerError.info({
+                method: req.method,
+                url: req.url,
+                statusCode: 404,
+                date: Date(),
+              });
+
             return res
             .status(404)
             .json({ general: "Character  " + parseInt(req.params.idCharacter) + " does not exist in session"});   
@@ -194,6 +307,14 @@ exports.remove_character = async (req: Request<{ idSession: string, idCharacter:
         
             
     } catch (error) {
+
+        loggerError.info({
+            method: req.method,
+            url: req.url,
+            statusCode: 500,
+            date: Date(),
+          });
+
         return res
         .status(500)
         .json({ general: "Something went wrong, please try again"});          
@@ -207,6 +328,14 @@ exports.roll_character = async (req: Request<{ idSession: string, idCharacter: s
         const session = App.get(req.params.idSession.toString())
 
         if (session == null) {
+
+            loggerError.info({
+                method: req.method,
+                url: req.url,
+                statusCode: 404,
+                date: Date(),
+              });
+
             return res
             .status(404)
             .json({ general: "It does not exist a session with id " + req.params.idSession.toString()}); 
@@ -222,6 +351,14 @@ exports.roll_character = async (req: Request<{ idSession: string, idCharacter: s
             .json({ general: "Character  " + character + " rolled " + roll});
         }
         else {
+
+            loggerError.info({
+                method: req.method,
+                url: req.url,
+                statusCode: 404,
+                date: Date(),
+              });
+
             return res
             .status(404)
             .json({ general: "Character  " + parseInt(req.params.idCharacter) + " does not exist in session"});   
@@ -229,6 +366,14 @@ exports.roll_character = async (req: Request<{ idSession: string, idCharacter: s
         
             
     } catch (error) {
+
+        loggerError.info({
+            method: req.method,
+            url: req.url,
+            statusCode: 500,
+            date: Date(),
+          });
+
         return res
         .status(500)
         .json({ general: "Something went wrong, please try again"});          
@@ -242,6 +387,14 @@ exports.roll_character_with_stats = async (req: Request<{ idSession: string, idC
         const session = App.get(req.params.idSession.toString())
 
         if (session == null) {
+
+            loggerError.info({
+                method: req.method,
+                url: req.url,
+                statusCode: 404,
+                date: Date(),
+              });
+
             return res
             .status(404)
             .json({ general: "It does not exist a session with id " + req.params.idSession.toString()}); 
@@ -251,6 +404,14 @@ exports.roll_character_with_stats = async (req: Request<{ idSession: string, idC
         var character = session.getCharacter(parseInt(req.params.idCharacter))
 
         if (character == undefined) {
+
+            loggerError.info({
+                method: req.method,
+                url: req.url,
+                statusCode: 404,
+                date: Date(),
+              });
+
             return res
             .status(404)
             .json({ general: "Character with id " + parseInt(req.params.idCharacter) + " does not exist in session"});   
@@ -264,6 +425,14 @@ exports.roll_character_with_stats = async (req: Request<{ idSession: string, idC
             .json({ general: "Character  " + character!!.character.name + " rolled " + roll + " with " + req.params.atr + " + " +req.params.dom});
         }
         else {
+
+            loggerError.info({
+                method: req.method,
+                url: req.url,
+                statusCode: 404,
+                date: Date(),
+              });
+
             return res
             .status(404)
             .json({ general: "Character  " + character + " does not exist in session"});   
@@ -271,6 +440,14 @@ exports.roll_character_with_stats = async (req: Request<{ idSession: string, idC
         
             
     } catch (error) {
+
+        loggerError.info({
+            method: req.method,
+            url: req.url,
+            statusCode: 500,
+            date: Date(),
+          });
+
         return res
         .status(500)
         .json({ general: "Something went wrong, please try again"});          
@@ -284,6 +461,14 @@ exports.roll_character_damage = async (req: Request<{ idSession: string, idChara
         const session = App.get(req.params.idSession.toString())
 
         if (session == null) {
+
+            loggerError.info({
+                method: req.method,
+                url: req.url,
+                statusCode: 404,
+                date: Date(),
+              });
+
             return res
             .status(404)
             .json({ general: "It does not exist a session with id " + req.params.idSession.toString()}); 
@@ -293,6 +478,14 @@ exports.roll_character_damage = async (req: Request<{ idSession: string, idChara
 
         const character = App.get(req.params.idSession.toString())?.getCharacter(parseInt(req.params.idCharacter))?.character.name
         if (character == undefined) {
+
+            loggerError.info({
+                method: req.method,
+                url: req.url,
+                statusCode: 404,
+                date: Date(),
+              });
+
             return res
             .status(404)
             .json({ general: "Character with id " + parseInt(req.params.idCharacter) + " does not exist in session"});   
@@ -306,6 +499,14 @@ exports.roll_character_damage = async (req: Request<{ idSession: string, idChara
             .json({ general: "Character  " + character + " rolled in damage " + roll});
         }
         else {
+
+            loggerError.info({
+                method: req.method,
+                url: req.url,
+                statusCode: 400,
+                date: Date(),
+              });
+
             return res
             .status(400)
             .json({ general: "Something went wrong."});   
@@ -313,6 +514,14 @@ exports.roll_character_damage = async (req: Request<{ idSession: string, idChara
         
             
     } catch (error) {
+
+        loggerError.info({
+            method: req.method,
+            url: req.url,
+            statusCode: 500,
+            date: Date(),
+          });
+
         return res
         .status(500)
         .json({ general: "Something went wrong, please try again"});          
@@ -326,6 +535,14 @@ exports.heal_character = async (req: Request<{ idSession: string, idCharacter: s
         const session = App.get(req.params.idSession.toString())
 
         if (session == null) {
+
+            loggerError.info({
+                method: req.method,
+                url: req.url,
+                statusCode: 404,
+                date: Date(),
+              });
+
             return res
             .status(404)
             .json({ general: "It does not exist a session with id " + req.params.idSession.toString()}); 
@@ -333,6 +550,14 @@ exports.heal_character = async (req: Request<{ idSession: string, idCharacter: s
 
         const character = App.get(req.params.idSession.toString())?.getCharacter(parseInt(req.params.idCharacter))
         if (character == undefined) {
+
+            loggerError.info({
+                method: req.method,
+                url: req.url,
+                statusCode: 404,
+                date: Date(),
+              });
+
             return res
             .status(404)
             .json({ general: "Character with id " + parseInt(req.params.idCharacter) + " does not exist in session"});   
@@ -346,6 +571,14 @@ exports.heal_character = async (req: Request<{ idSession: string, idCharacter: s
         
             
     } catch (error) {
+
+        loggerError.info({
+            method: req.method,
+            url: req.url,
+            statusCode: 500,
+            date: Date(),
+          });
+
         return res
         .status(500)
         .json({ general: "Something went wrong, please try again"});          
@@ -359,6 +592,14 @@ exports.damage_character = async (req: Request<{ idSession: string, idCharacter:
         const session = App.get(req.params.idSession.toString())
 
         if (session == null) {
+
+            loggerError.info({
+                method: req.method,
+                url: req.url,
+                statusCode: 404,
+                date: Date(),
+              });
+
             return res
             .status(404)
             .json({ general: "It does not exist a session with id " + req.params.idSession.toString()}); 
@@ -366,6 +607,14 @@ exports.damage_character = async (req: Request<{ idSession: string, idCharacter:
 
         const character = App.get(req.params.idSession.toString())?.getCharacter(parseInt(req.params.idCharacter))
         if (character == undefined) {
+
+            loggerError.info({
+                method: req.method,
+                url: req.url,
+                statusCode: 404,
+                date: Date(),
+              });
+
             return res
             .status(404)
             .json({ general: "Character with id " + parseInt(req.params.idCharacter) + " does not exist in session"});   
@@ -379,6 +628,14 @@ exports.damage_character = async (req: Request<{ idSession: string, idCharacter:
         
             
     } catch (error) {
+
+        loggerError.info({
+            method: req.method,
+            url: req.url,
+            statusCode: 404,
+            date: Date(),
+          });
+
         return res
         .status(404)
         .json({ general: "Something went wrong, please try again"});          
@@ -392,6 +649,14 @@ exports.order_initiative = async (req: Request<{ idSession: string}>, res: Respo
         const session = App.get(req.params.idSession.toString())
 
         if (session == null) {
+
+            loggerError.info({
+                method: req.method,
+                url: req.url,
+                statusCode: 404,
+                date: Date(),
+              });
+
             return res
             .status(404)
             .json({ general: "It does not exist a session with id " + req.params.idSession.toString()}); 
@@ -411,6 +676,14 @@ exports.order_initiative = async (req: Request<{ idSession: string}>, res: Respo
         
             
     } catch (error) {
+
+        loggerError.info({
+            method: req.method,
+            url: req.url,
+            statusCode: 404,
+            date: Date(),
+          });
+
         return res
         .status(404)
         .json({ general: "Something went wrong, please try again"});          

@@ -34,3 +34,7 @@ En el [Hito 1](https://github.com/pabloMillanCb/DenDen6/blob/main/doc/hitos/Hito
 En el [Hito 2](https://github.com/pabloMillanCb/DenDen6/blob/main/doc/hitos/Hito2.md) se detalla el testeo del proyecto.
 
 En el [Hito 3](https://github.com/pabloMillanCb/DenDen6/blob/main/doc/hitos/Hito3.md) se crea un contenedor para ejecutar los tests del proyecto y a través de GitHub Actions se automatiza para que se construya y ejecute ese contenedor cada vez que haya una versión nueva del proyecto.
+
+En el [Hito 4](https://github.com/pabloMillanCb/DenDen6/blob/main/doc/hitos/Hito4.md) se configuraron los tests para que se ejecutaran automáticamente al realizar un push al repositorio por varias vías.
+
+En el [Hito 5](https://github.com/pabloMillanCb/DenDen6/blob/main/doc/hitos/Hito5.md) se creó un microservicio con el proyecto, añadiendo tests para el mismo y logs.
