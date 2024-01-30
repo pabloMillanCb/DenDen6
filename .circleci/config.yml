@@ -6,17 +6,15 @@ version: 2.1
 # See: https://circleci.com/docs/configuration-reference/#jobs
 jobs:
   test:
-    # Specify the execution environment. You can specify an image from Docker Hub or use one of our convenience images from CircleCI's Developer Hub.
-    # See: https://circleci.com/docs/configuration-reference/#executor-job
     docker:
-      - image: ghcr.io/pablomillancb/denden6:main
-    # Add steps to the job
-    # See: https://circleci.com/docs/configuration-reference/#steps
+      - image: docker:19.03.12
     steps:
       - checkout
+      - setup_remote_docker
       - run:
-          name: "Tests"
-          command: "npm install --save && npm run test"
+          name: Run docker-compose
+          command: |
+            docker-compose run test
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
