@@ -14,7 +14,7 @@ jobs:
       - run:
           name: Run docker-compose
           command: |
-            docker-compose -f ./compose.yaml run test
+            docker-compose run test
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
