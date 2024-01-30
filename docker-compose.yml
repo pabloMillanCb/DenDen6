@@ -19,6 +19,3 @@ services:
     depends_on:
       app:
         condition: service_healthy
-    
-  redis:
-    image: "node:21.4-alpine"
