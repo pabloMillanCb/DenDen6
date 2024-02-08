@@ -38,3 +38,5 @@ En el [Hito 3](https://github.com/pabloMillanCb/DenDen6/blob/main/doc/hitos/Hito
 En el [Hito 4](https://github.com/pabloMillanCb/DenDen6/blob/main/doc/hitos/Hito4.md) se configuraron los tests para que se ejecutaran automáticamente al realizar un push al repositorio por varias vías.
 
 En el [Hito 5](https://github.com/pabloMillanCb/DenDen6/blob/main/doc/hitos/Hito5.md) se creó un microservicio con el proyecto, añadiendo tests para el mismo y logs.
+
+En el [Hito 6](https://github.com/pabloMillanCb/DenDen6/blob/main/doc/hitos/Hito6.md) se detalla la creación de un docker compose y sus contenedores.
