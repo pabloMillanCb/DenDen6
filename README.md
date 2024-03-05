@@ -6,6 +6,8 @@ Virtual Tabletop para el juego de rol Seapunk Unleashed desarrollado para la asi
 
 ## Descripción del proyecto
 
+El combate es más malo que la carne de pescuezo
+
 ### Descripción del problema
 
 Los juegos de rol son una actividad en la que varias personas se reunen para interpretar cada uno a un personaje en un mundo ficticio mientras que el *game master* o director de juego presenta un mundo y eventos en los cuales se verán envueltos dichos personajes. Estos deberán resolver las situaciones que se les propongan tirando dados y tomando decisiones.
